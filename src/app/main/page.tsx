@@ -110,6 +110,10 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center gap-4">
+              <nav className="hidden sm:flex items-center gap-4 text-sm">
+                <Link href="/" className="text-slate-400 hover:text-white transition-colors">Home</Link>
+                <Link href="/pitch" className="text-slate-400 hover:text-white transition-colors">Pitch Deck</Link>
+              </nav>
               <div className="text-right">
                 <div className="text-xs text-slate-500">Version</div>
                 <div className="text-sm text-slate-300 font-mono">MVP 1.0</div>

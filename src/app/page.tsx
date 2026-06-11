@@ -1,223 +1,182 @@
-'use client';
-
 /**
- * Landing Page
- * E=mc² Biotech Business Presentation
+ * Onboarding / Home
+ * E=mc² Biotech — keyword-rich entry point with paths to the pitch deck and 3D demo.
+ * Server component (no client state) so all content is in the server-rendered HTML for SEO.
  */
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 
-const slides = [
+const pillars = [
     {
-        id: 1,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 01',
-        image: '/slides/01.jpeg',
-        alt: 'Business Presentation Slide 1',
+        no: '01',
+        kicker: 'Hardware',
+        title: 'MYQ Flapless Implant',
+        body: 'The EMC2 / MYQ Flapless Implant System is a US-made, one-body flapless implant built from Titanium Grade 4 with an SLA-treated surface. Optimized for immediate loading, it enables a drill-free, suction-free 3-minute procedure with broad indications across bone qualities.',
     },
     {
-        id: 2,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 02',
-        image: '/slides/02.jpeg',
-        alt: 'Business Presentation Slide 2',
+        no: '02',
+        kicker: 'Software',
+        title: 'AI Auto-Planning',
+        body: 'Our software turns CT and intraoral scan data into a ready-to-print surgical guide in minutes. A formula-based AI engine determines the optimal dead-center implant position automatically, applying clinical clearance rules — with no manual positioning required.',
     },
     {
-        id: 3,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 03',
-        image: '/slides/03.jpeg',
-        alt: 'Business Presentation Slide 3',
-    },
-    {
-        id: 4,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 04',
-        image: '/slides/04_myq.jpeg',
-        alt: 'Business Presentation Slide 4',
-    },
-    {
-        id: 5,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 05',
-        image: '/slides/05.jpeg',
-        alt: 'Business Presentation Slide 5',
-    },
-    {
-        id: 6,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 06',
-        image: '/slides/06.jpeg',
-        alt: 'Business Presentation Slide 6',
-    },
-    {
-        id: 7,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 07',
-        image: '/slides/07.jpeg',
-        alt: 'Business Presentation Slide 7',
-    },
-    {
-        id: 8,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 08',
-        image: '/slides/08.jpeg',
-        alt: 'Business Presentation Slide 8',
-    },
-    {
-        id: 9,
-        title: 'E=mc² Biotech',
-        subtitle: 'PAGE 09',
-        image: '/slides/09.jpeg',
-        alt: 'Business Presentation Slide 9',
+        no: '03',
+        kicker: 'Platform',
+        title: 'Network & Support',
+        body: 'A cloud mentorship and franchise network lets general practitioners share difficult cases, learn standardized flapless implant protocols, and operate on a unified system — so no doctor works alone.',
     },
 ];
 
-export default function LandingPage() {
-    const [currentSlide, setCurrentSlide] = useState(0);
+const tags = ['US-MADE', 'ONE-BODY FLAPLESS', 'AI-AUTOMATED', 'SCAN-TO-PRINT'];
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-    };
-
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    };
-
-    const goToSlide = (index: number) => {
-        setCurrentSlide(index);
-    };
-
+export default function HomePage() {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex flex-col">
+        <div className="relative min-h-screen overflow-hidden bg-[#0a1424] text-white">
+            {/* Brand edge bar (matches the pitch deck's cyan accent rail) */}
+            <div className="fixed left-0 top-0 z-50 h-full w-[3px] bg-gradient-to-b from-cyan-400 via-cyan-500/70 to-transparent" />
+
+            {/* Ambient background: grid, cyan glow, E=mc² watermark */}
+            <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage:
+                            'linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px)',
+                        backgroundSize: '48px 48px',
+                        maskImage: 'radial-gradient(ellipse at 50% 0%, black 35%, transparent 78%)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at 50% 0%, black 35%, transparent 78%)',
+                    }}
+                />
+                <div
+                    className="absolute -top-40 left-[15%] h-[720px] w-[720px] rounded-full"
+                    style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.10), transparent 60%)' }}
+                />
+                <div
+                    className="absolute bottom-16 right-4 select-none font-bold leading-none tracking-tighter"
+                    style={{ fontSize: '13rem', color: 'rgba(255,255,255,0.022)' }}
+                >
+                    E=mc²
+                </div>
+            </div>
+
             {/* Header */}
-            <header className="w-full py-6 px-8 flex justify-between items-center bg-black/30 backdrop-blur-sm border-b border-white/10">
-                <div className="flex items-center gap-3">
-                    <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-white/20">
+            <header className="relative z-10 flex items-center justify-between border-b border-white/5 px-6 py-6 md:px-12">
+                <Link href="/" className="flex items-center gap-3">
+                    <div className="relative h-9 w-9 overflow-hidden rounded-md border border-white/15">
                         <Image src="/logo.jpg" alt="E=mc2 Biotech Logo" fill className="object-cover" />
                     </div>
-                    <div>
-                        <h1 className="text-white font-bold text-xl">E=mc² Biotech</h1>
-                        <p className="text-blue-300 text-xs">Automated Implant Guide Design</p>
-                    </div>
-                </div>
-                <Link
-                    href="/main"
-                    className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-lg font-semibold transition-all shadow-lg hover:shadow-blue-500/50"
-                >
-                    View Demo
+                    <span className="font-bold text-lg tracking-tight">E=mc² Biotech</span>
                 </Link>
+                <nav className="flex items-center gap-6 font-mono text-xs uppercase tracking-widest">
+                    <Link href="/pitch" className="text-slate-400 transition-colors hover:text-cyan-300">
+                        Pitch Deck
+                    </Link>
+                    <Link href="/main" className="text-cyan-300 transition-colors hover:text-cyan-200">
+                        3D Demo →
+                    </Link>
+                </nav>
             </header>
 
-            {/* Main Content */}
-            <main className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-                {/* Slide Container */}
-                <div className="w-full max-w-6xl mx-auto">
-                    {/* Title */}
-                    <div className="text-center mb-8">
-                        <p className="text-blue-400 text-sm font-semibold mb-2 tracking-wider uppercase">
-                            {slides[currentSlide].subtitle}
-                        </p>
-                        <h2 className="text-white text-3xl md:text-4xl font-bold">
-                            {slides[currentSlide].title}
-                        </h2>
-                    </div>
+            {/* Hero */}
+            <main className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-20 md:px-12 md:pt-28">
+                <p className="mb-7 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.28em] text-cyan-400/90">
+                    <span className="text-cyan-400">▸</span> E=mc² Biotech · Sunnyvale, California
+                </p>
 
-                    {/* Image Viewer */}
-                    <div className="relative bg-black/40 backdrop-blur-sm rounded-2xl p-4 md:p-8 shadow-2xl border border-white/10">
-                        {/* Navigation Buttons */}
-                        <button
-                            onClick={prevSlide}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all shadow-lg"
-                            aria-label="Previous slide"
-                        >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
+                <h1 className="max-w-4xl text-5xl font-bold leading-[1.04] tracking-tight md:text-7xl">
+                    AutoImplant Guide<span className="text-cyan-400">.</span>
+                    <br />
+                    <span className="text-slate-500">Automated by design.</span>
+                </h1>
 
-                        <button
-                            onClick={nextSlide}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all shadow-lg"
-                            aria-label="Next slide"
-                        >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-slate-300">
+                    E=mc² Biotech pairs a US-made <strong className="font-semibold text-white">one-body flapless implant</strong>{' '}
+                    (the MYQ / EMC2 Implant System) with <strong className="font-semibold text-white">AI-driven, automated
+                    surgical guide design</strong> — taking you from CT scan to a ready-to-print implant guide in minutes.
+                </p>
 
-                        {/* Slide Image */}
-                        <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-                            <Image
-                                src={slides[currentSlide].image}
-                                alt={slides[currentSlide].alt}
-                                fill
-                                className="object-contain"
-                                priority
-                            />
-                        </div>
+                {/* Credential tag strip */}
+                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-widest text-slate-500">
+                    {tags.map((t, i) => (
+                        <span key={t} className="flex items-center gap-6">
+                            {i > 0 && <span className="text-cyan-500/40">/</span>}
+                            <span>{t}</span>
+                        </span>
+                    ))}
+                </div>
 
-                        {/* Slide Indicator */}
-                        <div className="flex justify-center gap-2 mt-6">
-                            {slides.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => goToSlide(index)}
-                                    className={`w-3 h-3 rounded-full transition-all ${index === currentSlide
-                                        ? 'bg-blue-500 w-8'
-                                        : 'bg-white/30 hover:bg-white/50'
-                                        }`}
-                                    aria-label={`Go to slide ${index + 1}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* CTA Section */}
-                    <div className="text-center mt-12">
-                        <p className="text-gray-300 mb-6 text-lg">
-                            Experience the Automated Implant Guide Design System
-                        </p>
-                        <Link
-                            href="/main"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-xl font-bold text-lg transition-all shadow-xl hover:shadow-blue-500/50 hover:scale-105"
-                        >
-                            <span>Try 3D Demo</span>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </Link>
-                    </div>
+                {/* CTAs */}
+                <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+                    <Link
+                        href="/pitch"
+                        className="group inline-flex items-center justify-center gap-3 rounded-sm border border-white/15 px-8 py-4 font-medium transition-all hover:border-cyan-400/50 hover:bg-cyan-400/[0.04] hover:text-cyan-200"
+                    >
+                        View Pitch Deck
+                        <span className="text-cyan-400 transition-transform group-hover:translate-x-1">→</span>
+                    </Link>
+                    <Link
+                        href="/main"
+                        className="group inline-flex items-center justify-center gap-3 rounded-sm bg-cyan-400 px-8 py-4 font-semibold text-[#06101e] shadow-[0_0_30px_-8px_rgba(34,211,238,0.6)] transition-all hover:bg-cyan-300"
+                    >
+                        Launch 3D Demo
+                        <span className="transition-transform group-hover:translate-x-1">→</span>
+                    </Link>
                 </div>
             </main>
 
-            {/* Footer */}
-            <footer className="w-full py-8 px-8 bg-black/30 backdrop-blur-sm border-t border-white/10">
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        {/* Company Info */}
-                        <div className="text-left">
-                            <h3 className="text-white font-bold text-lg mb-3">E=mc² Biotech</h3>
-                            <p className="text-gray-400 text-sm mb-2">Automated Implant Guide Design</p>
-                        </div>
+            {/* Three pillars — numbered, accent-rail cards (crawlable SEO content) */}
+            <section className="relative z-10 border-t border-white/5 bg-black/20 px-6 py-20 md:px-12">
+                <div className="mx-auto max-w-6xl">
+                    <p className="mb-3 font-mono text-xs uppercase tracking-[0.28em] text-cyan-400/90">
+                        The Ecosystem
+                    </p>
+                    <h2 className="mb-14 max-w-3xl text-2xl font-bold tracking-tight md:text-3xl">
+                        A complete ecosystem for fast, predictable implant dentistry
+                    </h2>
 
-                        {/* Contact Info */}
-                        <div className="text-left md:text-right">
-                            <div className="text-gray-400 text-sm space-y-1">
-                                <p><span className="text-gray-500">CEO:</span> Eun Park</p>
-                                <p><span className="text-gray-500">Email:</span> <a href="mailto:ekpark@emc2-biotech.com" className="hover:text-blue-400 transition-colors">ekpark@emc2-biotech.com</a></p>
-                                <p><span className="text-gray-500">Phone:</span> <a href="tel:+16504000800" className="hover:text-blue-400 transition-colors">+1 650-400-0800</a></p>
-                                <p><span className="text-gray-500">Address:</span> 1055 Stewart Dr, #113, Sunnyvale, CA 94085</p>
+                    <div className="grid grid-cols-1 gap-px overflow-hidden md:grid-cols-3">
+                        {pillars.map((p) => (
+                            <div
+                                key={p.no}
+                                className="group relative border-l border-white/10 px-6 py-2 transition-colors hover:border-cyan-400/60"
+                            >
+                                <span className="font-mono text-sm text-cyan-400/70">{p.no}</span>
+                                <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-slate-500">
+                                    {p.kicker}
+                                </p>
+                                <h3 className="mt-1 text-lg font-bold text-white">{p.title}</h3>
+                                <p className="mt-4 text-sm leading-relaxed text-slate-400">{p.body}</p>
                             </div>
-                        </div>
+                        ))}
                     </div>
+                </div>
+            </section>
 
-                    {/* Copyright */}
-                    <div className="border-t border-white/10 pt-4 text-center">
-                        <p className="text-gray-400 text-sm">© 2025 E=mc² Biotech. All rights reserved.</p>
+            {/* Footer */}
+            <footer className="relative z-10 border-t border-white/5 px-6 py-10 md:px-12">
+                <div className="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                    <div>
+                        <h3 className="font-bold text-lg tracking-tight">E=mc² Biotech</h3>
+                        <p className="mt-1 font-mono text-xs uppercase tracking-widest text-slate-500">
+                            Automated Implant Guide Design
+                        </p>
+                        <nav className="mt-4 flex gap-5 font-mono text-xs uppercase tracking-widest">
+                            <Link href="/pitch" className="text-slate-400 transition-colors hover:text-cyan-300">Pitch Deck</Link>
+                            <Link href="/main" className="text-slate-400 transition-colors hover:text-cyan-300">3D Demo</Link>
+                        </nav>
                     </div>
+                    <div className="space-y-1 text-sm text-slate-400 md:text-right">
+                        <p><span className="text-slate-600">CEO</span> &nbsp;Eun Park</p>
+                        <p><span className="text-slate-600">Email</span> &nbsp;<a href="mailto:ekpark@emc2-biotech.com" className="transition-colors hover:text-cyan-300">ekpark@emc2-biotech.com</a></p>
+                        <p><span className="text-slate-600">Phone</span> &nbsp;<a href="tel:+16504000800" className="transition-colors hover:text-cyan-300">+1 650-400-0800</a></p>
+                        <p><span className="text-slate-600">Address</span> &nbsp;1055 Stewart Dr, #113, Sunnyvale, CA 94085</p>
+                    </div>
+                </div>
+                <div className="mx-auto mt-8 max-w-6xl border-t border-white/5 pt-5">
+                    <p className="font-mono text-[11px] uppercase tracking-widest text-slate-600">
+                        © 2025 E=mc² Biotech · All rights reserved
+                    </p>
                 </div>
             </footer>
         </div>
