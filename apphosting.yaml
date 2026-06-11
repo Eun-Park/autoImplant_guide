@@ -1,0 +1,19 @@
+# Firebase App Hosting configuration
+# Docs: https://firebase.google.com/docs/app-hosting/configure
+
+runConfig:
+  # Low-traffic demo: cap instances to control cost.
+  # Raise this later as real traffic grows.
+  minInstances: 0
+  maxInstances: 2
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+
+# Environment variables / secrets go here when the backend is added, e.g.:
+# env:
+#   - variable: NEXT_PUBLIC_API_URL
+#     value: https://example.com
+#     availability:
+#       - BUILD
+#       - RUNTIME

@@ -61,7 +61,7 @@ src/
 - **3D Graphics**: Three.js, React Three Fiber
 - **Styling**: Tailwind CSS v4
 - **Language**: TypeScript
-- **Deployment**: Vercel
+- **Deployment**: Firebase App Hosting
 
 ## Build
 
@@ -76,9 +76,22 @@ npm start
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 - [Three.js Documentation](https://threejs.org/docs/)
 
-## Deploy on Vercel
+## Deploy on Firebase App Hosting
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
+This app is deployed via [Firebase App Hosting](https://firebase.google.com/docs/app-hosting),
+which provides Git-connected, auto-deploying hosting for full-stack Next.js apps.
+
+Runtime configuration lives in [`apphosting.yaml`](./apphosting.yaml).
+
+### Setup
+
+1. Push to GitHub (App Hosting reads `apphosting.yaml` from the repo).
+2. In the [Firebase Console](https://console.firebase.google.com), create a project
+   and upgrade to the **Blaze (pay-as-you-go)** plan (required for App Hosting).
+3. Go to **Build → App Hosting → Get started**, connect this GitHub repository,
+   and set the live branch to `main`.
+4. Firebase auto-detects Next.js, builds, and deploys. Every push to `main`
+   triggers an automatic redeploy.
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
